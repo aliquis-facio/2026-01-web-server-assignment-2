@@ -1,6 +1,5 @@
 """
-[과제 3] qa/management/commands/seed_data.py
-TODO: 사용자 5명과 질문/답변을 자동 생성하는 management command를 완성하세요.
+사용자 5명과 질문/답변을 자동 생성하는 management command
 실행: python manage.py seed_data
 """
 import random
@@ -13,18 +12,19 @@ class Command(BaseCommand):
     help = 'Create test users, questions, and answers'
 
     def handle(self, *args, **kwargs):
-        # TODO: 사용자 5명 생성 (user1~user5, 비밀번호: test1234)
+        # 사용자 5명 생성 (user1~user5, 비밀번호: test1234)
         for i in range(5):
             username = f'user{i+1}'
             if not User.objects.filter(username=username).exists():
-                # TODO: User를 생성하세요
-                # 힌트: User.objects.create_user(username=username, password='test1234')
+                # User 생성
                 User.objects.create_user(username=username, password='test1234')
                 self.stdout.write(f"Created user: {username}")
 
+        # 기존 DB에 있는 모든 사용자 -> admin도 포함될 수 있음
         users = list(User.objects.all())
 
-        # 한국어 질문 데이터
+        # 한국어 질문 데이터 10개
+        # 각 질문에 답변 1~2개
         questions_data = [
             {
                 'title': 'Django에서 모델 마이그레이션이 안 될 때 어떻게 하나요?',
@@ -103,23 +103,22 @@ class Command(BaseCommand):
         ]
 
         for qdata in questions_data:
-            author = random.choice(users)
-            # TODO: Question 객체를 생성하세요
-            # 힌트: Question.objects.create(title=..., content=..., author=...)
+            q_author = random.choice(users)
+            # Question 객체 생성
+            # 중복 방지 로직 없음
             q = Question.objects.create(
                 title=qdata['title'],
                 content=qdata['content'],
-                author=author
+                author=q_author
             )
             self.stdout.write(f"Created question: {q.title}")
 
             for ans_content in qdata['answers']:
-                # TODO: Answer 객체를 생성하세요
-                # 힌트: Answer.objects.create(question=q, content=..., author=...)
-                author = random.choice(users)
+                # Answer 객체 생성
+                ans_author = random.choice(users)
                 Answer.objects.create(
                     question = q,
                     content=ans_content,
-                    author=author
+                    author=ans_author
                 )
-                self.stdout.write(f" -> Added answer by {author.username}")
+                self.stdout.write(f" -> Added answer by {ans_author.username}")

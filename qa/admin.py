@@ -1,12 +1,11 @@
 """
-[과제 3] qa/admin.py
-TODO: Question과 Answer 모델을 admin에 등록하세요.
+admin 사이트에 모델 등록
 """
 from django.contrib import admin
 from .models import Question, Answer
 
-# TODO: Question 모델을 admin에 등록하세요
+# Question 모델 admin 등록
 admin.site.register(Question)
 
-# TODO: Answer 모델을 admin에 등록하세요
+# Answer 모델 admin 등록
 admin.site.register(Answer)

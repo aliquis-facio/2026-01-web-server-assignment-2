@@ -1,6 +1,5 @@
 """
-[과제 3] qa/models.py
-TODO: Question과 Answer 모델을 완성하세요.
+데이터 구조 정의
 
 Question 모델 필드:
   - title: CharField(max_length=200)
@@ -19,16 +18,16 @@ from django.contrib.auth.models import User
 
 
 class Question(models.Model):
-    # TODO: 제목 필드 (CharField, max_length=200)
+    # 제목, 최대 200자
     title = models.CharField(max_length=200)
 
-    # TODO: 내용 필드 (TextField)
+    # 내용
     content = models.TextField()
 
-    # TODO: 작성자 필드 (ForeignKey → User, on_delete=models.CASCADE)
+    # 작성자, User와 N:1 관계, 사용자가 삭제되면 질문도 삭제
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # TODO: 작성일 필드 (DateTimeField, auto_now_add=True)
+    # 작성일, 생성 시각 자동 저장
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -36,16 +35,16 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    # TODO: 질문 참조 필드 (ForeignKey → Question, on_delete=models.CASCADE, related_name='answers')
+    # 질문 참조, 질문 삭제 시 답변도 삭제
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
 
-    # TODO: 답변 내용 필드 (TextField)
+    # 답변 내용
     content = models.TextField()
 
-    # TODO: 작성자 필드 (ForeignKey → User, on_delete=models.CASCADE)
+    # 작성자 (ForeignKey → User, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # TODO: 작성일 필드 (DateTimeField, auto_now_add=True)
+    # 작성일 (DateTimeField, auto_now_add=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

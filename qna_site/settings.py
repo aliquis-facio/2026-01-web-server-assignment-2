@@ -1,7 +1,5 @@
 """
-[과제 3] qna_site/settings.py
-TODO: INSTALLED_APPS에 'qa' 앱을 등록하세요.
-TODO: LOGIN_REDIRECT_URL과 LOGOUT_REDIRECT_URL을 설정하세요.
+프로젝트 전역 설정 파일
 """
 from pathlib import Path
 
@@ -20,7 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # TODO: 여기에 'qa' 앱을 추가하세요
+    # 'qa' 앱 추가
     'qa',
 ]
 
@@ -40,7 +38,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        # TODO: APP_DIRS를 True로 설정해야 앱 내부 templates 폴더를 자동 인식합니다
+        # 앱 내부 templates 폴더 자동 인식
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -55,6 +53,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'qna_site.wsgi.application'
 
+# DB 설정
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -81,7 +80,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# TODO: 로그인/로그아웃 후 이동할 URL을 '/'로 설정하세요
+# 로그인 관련 설정
 LOGIN_URL='/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
