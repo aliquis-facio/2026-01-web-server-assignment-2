@@ -5,8 +5,6 @@ TODO: 질문 목록, 질문 상세, 질문 작성 뷰를 완성하세요.
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, Answer
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 def question_list(request):
